@@ -33,7 +33,9 @@ def create_hosted_zone():
     route53 = Route53()
     data = request.get_json()
     hz_name = data['Name']
-    return route53.create_hosted_zone(domain_name=hz_name)
+    comment = data['Comment'] if data['Comment'] else ""
+    is_private = data['Private'] if data['Private'] else False
+    return route53.create_hosted_zone(domain_name=hz_name, comment=comment, is_private=is_private)
 
 
 # CloudFront routes

@@ -25,7 +25,10 @@
     __Example:__
     ```json
         {
-            "Name": "example.com"
+            "Name": "example.com",
+            // Optional
+            "Comment": "some example comment",
+            "Private": true || false
         }
     ```
 - [ ] `POST` /zones/<zone_id> -> create new record set under specific hosted zone
