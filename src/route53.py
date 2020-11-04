@@ -51,7 +51,18 @@ class Route53():
         )
     
 
-    def change_resource_record_set(self, zone_id, record_type, comment, action, name , type, ttl, target):
+    def change_resource_record_set(self, zone_id, comment, action, name , type, ttl, target):
+        """
+        Function is needed to CREATE/MODIFY/DELETE resource record sets udner route53 hosted zone.
+
+        :param zone_id : Target hosted zone id where record will be changed
+        :param comment : Comment for resource record set
+        :param action  : CREATE/UPSERT/DELETE
+        :param name    : Name of resource record set which will changed
+        :param type    : 'SOA'|'A'|'TXT'|'NS'|'CNAME'|'MX'|'NAPTR'|'PTR'|'SRV'|'SPF'|'
+        :param ttl     : TTL
+        :param target  : Endpoint to map record
+        """
         file_loader = FileSystemLoader('templates')
         env = jEnv(loader=file_loader)
         env.trim_blocks = True
@@ -70,7 +81,18 @@ class Route53():
         )
 
 
-    def change_resource_record_alias(self, zone_id, record_type, comment, action, type, hosted_zone, dns_name, name):
+    def change_resource_record_alias(self, zone_id, comment, action, type, hosted_zone, dns_name, name):
+        """
+        Function is needed to CREATE/MODIFY/DELETE recourd aliases udner route53 hosted zone.
+
+        :param zone_id     : Target hosted zone id where alias will be changed
+        :param comment     : Comment for alias record
+        :param action      : CREATE/UPSERT/DELETE
+        :param type        : 'SOA'|'A'|'TXT'|'NS'|'CNAME'|'MX'|'NAPTR'|'PTR'|'SRV'|'SPF'|'
+        :param hosted_zone : Hosted zone for alias -> where is the other resource located f.e. CDN
+        :param dns_name    : Dns name for alias creation
+        :param name        : Alias record name which will be created
+        """
         file_loader = FileSystemLoader('templates')
         env = jEnv(loader=file_loader)
         env.trim_blocks = True

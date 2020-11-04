@@ -50,7 +50,6 @@ def change_resource_record(self, zone_id):
     if data['RerordType'] == 'Alias':
         return route53.change_resource_record_alias(
             zone_id=zone_id,
-            record_type=data['RecordType'],
             comment=data['Comment'],
             action=data['Action'],
             type=data['Type'],
@@ -61,7 +60,6 @@ def change_resource_record(self, zone_id):
     elif data['RecordType'] == 'Set':
         return route53.change_resource_record_set(
             zone_id=zone_id,
-            record_type=data['RecordType'],
             comment=data['Comment'],
             action=data['Action'],
             name=data['Name'],
