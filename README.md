@@ -31,7 +31,7 @@
             "Private": true | false
         }
     ```
-- [ ] `POST` /zones/<zone_id> -> create new record set under specific hosted zone
+- [X] `POST` /zones/<zone_id> -> creates/updates/deletes record set/alias under specific hosted zone
     - __Example (Set):__
         ```json
             {
@@ -57,7 +57,8 @@
             }
         ```
 - [ ] `DELETE` /zones/<zone_id> -> delete route53 hosted zone
-- [ ] `DELETE` /zones/<zone_id>/<record_name> -> delete record set under hosted zone
+
+> Record sets/aliases deletion methods covers in POST request (just provide DELETE action)
 
 ## Clodfront module
 
