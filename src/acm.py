@@ -76,3 +76,21 @@ class ACM():
         :param r: record_set dictionary from method -> get_domain_validation_records()	
         """
         return (r.get('Type'), r.get('Name'), r.get('Value'))
+
+
+    def wait_for_certificate_validation(self, certificate_arn, sleep_time=5, timeout=300):
+        """
+        Method to wait until certificate will be valid with timeout.
+
+        :param certificate_arn: unique certificate_arn provided by amazon
+        :param sleep_time: default 5 sec, checks certificate status every 5 seconds
+        :param timeout: maximum time to try certificate verification
+        """
+        status = self.client.describe_certificate(CertificateArn=certificate_arn)['Certificate']['Status']
+        elapsed_time = 0
+        while status == 'PENDING_VALIDATION':
+            if elapsed_time > timeout:
+                raise Exception('Timeout ({}s) reached for certificate validation'.format(timeout))
+            time.sleep(sleep_time)
+            status = self.client.describe_certificate(CertificateArn=certificate_arn)['Certificate']['Status']
+            elapsed_time += 5
