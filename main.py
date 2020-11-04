@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from flask import make_response
+from flask import request
 
 from src.route53 import Route53
 from src.cloudfront import CloudFront
@@ -24,6 +25,15 @@ def get_hosted_zone(zone_id):
     """
     route53 = Route53()
     return route53.get_hosted_zone(zone_id=zone_id)
+
+
+@app.route('/zones/', methods=['POST'])
+def create_hosted_zone():
+    """ Function creates new hosted zone under Route53 domain. """
+    route53 = Route53()
+    data = request.get_json()
+    hz_name = data['Name']
+    return route53.create_hosted_zone(domain_name=hz_name)
 
 
 # CloudFront routes

@@ -1,5 +1,6 @@
 import boto3
 from src.environment import Environment
+from src.helpers import Helper
 
 
 class Route53():
@@ -26,4 +27,22 @@ class Route53():
         """
         return self.client.get_hosted_zone(
             Id=zone_id
+        )
+
+    
+    def create_hosted_zone(self, domain_name, comment="", is_private=False):
+        """
+        Function creates new hosted zone under Route53 domain
+
+        :param domain_name: Domain name = hosted zone name
+        """
+        helpers = Helper()
+        return self.client.create_hosted_zone(
+            Name = domain_name,
+            CallerReference = helpers.get_random_string(13),
+            HostedZoneConfig={
+				'Comment': comment,
+				'PrivateZone': is_private
+			},
+            DelegationSetId = Environment.delegation_set
         )

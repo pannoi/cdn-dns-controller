@@ -21,7 +21,13 @@
 
 - [X] `GET` /zones/ -> lists all hosted zones in Route53 domain
 - [X] `GET` /zones/<zone_id> -> lists all record sets in specific hosted zone
-- [ ] `POST` /zones/ -> create new hosted_zone
+- [X] `POST` /zones/ -> create new hosted_zone
+    __Example:__
+    ```json
+        {
+            "Name": "example.com"
+        }
+    ```
 - [ ] `POST` /zones/<zone_id> -> create new record set under specific hosted zone
 - [ ] `DELETE` /zones/<zone_id> -> delete route53 hosted zone
 - [ ] `DELETE` /zones/<zone_id>/<record_name> -> delete record set under hosted zone
@@ -40,6 +46,7 @@
 * __AWS_SECRET_KEY__ = AWS SECRET KEY FOR IAM
 * __AWS_REGION__ = region where iam will be connected to AWS
 > Tested Region us-east-1
+* __ROUTE53_DELEGATION_SET__ = route53 delegation set which will be used for creating hosted zones 
 
 ## Local
 
