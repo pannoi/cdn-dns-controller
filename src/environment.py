@@ -8,4 +8,4 @@ class Environment:
     aws_access_key: str = os.getenv('AWS_ACCESS_KEY')
     aws_secret_key: str = os.getenv('AWS_SECRET_KEY')
     aws_region: str = os.getenv('AWS_REGION')
-    delegation_set: str = os.getenv('ROUTE53_DELEGATION_SET')
+    route53_delegation_set: str = os.getenv('ROUTE53_DELEGATION_SET')

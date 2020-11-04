@@ -47,11 +47,11 @@ class Route53():
 				'Comment': comment,
 				'PrivateZone': is_private
 			},
-            DelegationSetId = Environment.delegation_set
+            DelegationSetId = Environment.route53_delegation_set
         )
     
 
-    def change_resource_record_set(self, zone_id, record_type, comment, action, name ,type, ttl, target):
+    def change_resource_record_set(self, zone_id, record_type, comment, action, name , type, ttl, target):
         file_loader = FileSystemLoader('templates')
         env = jEnv(loader=file_loader)
         env.trim_blocks = True
@@ -71,4 +71,20 @@ class Route53():
 
 
     def change_resource_record_alias(self, zone_id, record_type, comment, action, type, hosted_zone, dns_name, name):
-        pass
+        file_loader = FileSystemLoader('templates')
+        env = jEnv(loader=file_loader)
+        env.trim_blocks = True
+        template = env.get_template('resource_record_alias.j2')
+        output = template.render(
+            comment=comment,
+            action=action,
+            evaluate_health=False,
+            dns_name=dns_name,
+            hosted_zone=hosted_zone,
+            name=name,
+            type=type
+        )
+        return self.client.change_resource_record_sets(
+            HostedZoneId=zone_id,
+            ChangeBatch=output
+        )

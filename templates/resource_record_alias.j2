@@ -1,0 +1,17 @@
+{
+    "Comment": "{{ comment }}",
+    "Changes":[
+        {
+            "Action": "{{ action }}",
+            "ResourceRecordSet": {
+                "AliasTarget": {
+                    "DNSName": "{{ dns_name }}",
+                    "EvaluateTargetHealth": "{{ evaluate_health }}",
+                    "HostedZoneId": "{{ hosted_zone }}",
+                },
+                "Name": "{{ name }}",
+                "Type": "{{ type }}"
+            }
+        }
+    ]
+}
