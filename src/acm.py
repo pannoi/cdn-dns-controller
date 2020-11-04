@@ -54,3 +54,25 @@ class ACM():
         return self.client.delete_certificate(
             CertificateArn=certificate_arn
         )
+
+
+    def get_domain_validation_records(self, certificate_arn):
+            """
+        When certificate is created it needs to be verified by domain record.
+        Method returns this validation record which needs to be set in Route53.
+
+        :param certificate_arn: unique certificate_arn provided by amazon
+        """
+        certificate_metadata = self.client.describe_certificate(
+            CertificateArn=certificate_arn
+        )
+        return certificate_metadata.get('Certificate', {}).get('DomainValidationOptions', [])
+
+
+    def get_resource_record_data(self, r):
+        """
+        Parsing function for record_set dict.
+
+        :param r: record_set dictionary from method -> get_domain_validation_records()	
+        """
+        return (r.get('Type'), r.get('Name'), r.get('Value'))
