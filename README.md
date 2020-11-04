@@ -56,9 +56,10 @@
                 "Name": "<string>" // example.example.com (name.domain.name)
             }
         ```
-- [ ] `DELETE` /zones/<zone_id> -> delete route53 hosted zone
+    > Record sets/aliases deletion methods covers in POST request (just provide DELETE action)
+- [X] `DELETE` /zones/<zone_id> -> delete route53 hosted zone
+> This method is not forced, you will be able to delete hosted zone, only if it doesn't have any records.
 
-> Record sets/aliases deletion methods covers in POST request (just provide DELETE action)
 
 ## Clodfront module
 

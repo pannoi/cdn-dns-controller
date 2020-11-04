@@ -71,6 +71,13 @@ def change_resource_record(self, zone_id):
         return make_response(jsonify({'error': 'Bad Request: RecordType not found, should be "Set" or "Alias"'}), 400)
 
 
+@app.route('/zones/<string:zone_id>', methods=['DELETE'])
+def delete_zone(zone_id):
+	""" Deletes hosted zone. """
+	route53 = Route53()
+	return route53.delete_hosted_zone(zone_id)
+
+
 # CloudFront routes
 @app.route('/distributions/', methods=['GET'])
 def list_distributions():

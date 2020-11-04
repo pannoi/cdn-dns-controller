@@ -110,3 +110,14 @@ class Route53():
             HostedZoneId=zone_id,
             ChangeBatch=output
         )
+
+
+    def delete_hosted_zone(self, zone_id):
+        """
+        Function delete specified hosted zone under Route53 domain.
+
+        :param zone_id: Hosted zone which should be deleted
+        """
+        return self.client.delete_hosted_zone(
+            Id=zone_id
+        )
