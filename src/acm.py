@@ -43,3 +43,14 @@ class ACM():
             ValidationMethod='DNS',
         )
         return response.get('CertificateArn')
+
+
+    def delete_certificate(self, certificate_arn):
+        """
+        Deletes certificate from ACM by certificate ARN.
+
+        :param certificate_arn: unique certificate_arn provided by amazon
+        """
+        return self.client.delete_certificate(
+            CertificateArn=certificate_arn
+        )
