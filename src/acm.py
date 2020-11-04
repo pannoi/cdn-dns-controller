@@ -1,4 +1,5 @@
 import boto3
+import time
 from src.environment import Environment
 
 
@@ -57,7 +58,7 @@ class ACM():
 
 
     def get_domain_validation_records(self, certificate_arn):
-            """
+        """
         When certificate is created it needs to be verified by domain record.
         Method returns this validation record which needs to be set in Route53.
 
