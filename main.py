@@ -38,6 +38,41 @@ def create_hosted_zone():
     return route53.create_hosted_zone(domain_name=hz_name, comment=comment, is_private=is_private)
 
 
+@app.route('/zones/<string:zone_id>', methods=['POST'])
+def change_resource_record(self, zone_id):
+    """
+    Funtion changes resources record set in specified hosted zone.
+
+    :param zone_id: Id of targetd hosted zone
+    """
+    route53 = Route53()
+    data = request.get_json()
+    if data['RerordType'] == 'Alias':
+        return route53.change_resource_record_alias(
+            zone_id=zone_id,
+            record_type=data['RecordType'],
+            comment=data['Comment'],
+            action=data['Action'],
+            type=data['Type'],
+            hosted_zone=data['HostedZone'],
+            dns_name=data['DnsName'],
+            name=data['Name']
+        )
+    elif data['RecordType'] == 'Set':
+        return route53.change_resource_record_set(
+            zone_id=zone_id,
+            record_type=data['RecordType'],
+            comment=data['Comment'],
+            action=data['Action'],
+            name=data['Name'],
+            type=data['Type'],
+            ttl=data['TTL'],
+            target=data['Target']
+        )
+    else:
+        return make_response(jsonify({'error': 'Bad Request: RecordType not found, should be "Set" or "Alias"'}), 400)
+
+
 # CloudFront routes
 @app.route('/distributions/', methods=['GET'])
 def list_distributions():

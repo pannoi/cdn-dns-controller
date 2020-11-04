@@ -1,4 +1,7 @@
 import boto3
+from jinja2 import Environment as jEnv
+from jinja2 import Template, FileSystemLoader
+
 from src.environment import Environment
 from src.helpers import Helper
 
@@ -46,3 +49,26 @@ class Route53():
 			},
             DelegationSetId = Environment.delegation_set
         )
+    
+
+    def change_resource_record_set(self, zone_id, record_type, comment, action, name ,type, ttl, target):
+        file_loader = FileSystemLoader('templates')
+        env = jEnv(loader=file_loader)
+        env.trim_blocks = True
+        template = env.get_template('resource_record_set.j2')
+        output = template.render(
+            comment=comment,
+            action=action,
+            name=name,
+            type=type,
+            ttl=ttl,
+            target=target
+        )
+        return self.client.change_resource_record_sets(
+            HostedZoneId=zone_id,
+            ChangeBatch=output
+        )
+
+
+    def change_resource_record_alias(self, zone_id, record_type, comment, action, type, hosted_zone, dns_name, name):
+        pass

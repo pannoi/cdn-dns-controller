@@ -28,10 +28,34 @@
             "Name": "example.com",
             // Optional
             "Comment": "some example comment",
-            "Private": true || false
+            "Private": true | false
         }
     ```
 - [ ] `POST` /zones/<zone_id> -> create new record set under specific hosted zone
+    - __Example (Set):__
+        ```json
+            {
+                "RecordType": "Set",
+                "Comment": "some example comment",
+                "Action": "CREATE | DELETE | UPSERT",
+                "Name": "example.com", // Your record name
+                "Type": "'SOA'|'A'|'TXT'|'NS'|'CNAME'|'MX'|'NAPTR'|'PTR'|'SRV'|'SPF'|'",
+                "TTL": "<int>", // Whatever integer to determine TTl
+                "Target": "<string>" // Whatever endpoint to map your record (list)
+            }
+        ```
+    - __Example (Alias):__
+        ```json
+            {
+                "RecordType": "Alias",
+                "Comment": "some example comment",
+                "Action": "CREATE | DELETE | UPSERT",
+                "Type": "'SOA'|'A'|'TXT'|'NS'|'CNAME'|'MX'|'NAPTR'|'PTR'|'SRV'|'SPF'|'",
+                "HostedZone": "<string>", // Hosted Zone of resource where resource is located
+                "DnsName": "<string>", // Target Address
+                "Name": "<string>" // example.example.com (name.domain.name)
+            }
+        ```
 - [ ] `DELETE` /zones/<zone_id> -> delete route53 hosted zone
 - [ ] `DELETE` /zones/<zone_id>/<record_name> -> delete record set under hosted zone
 
