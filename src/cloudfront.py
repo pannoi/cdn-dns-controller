@@ -28,3 +28,21 @@ class CloudFront():
         return self.client.get_distribution(
             Id=distribution_id
         )
+
+
+    def create_distribution(self):
+        """
+        Function creates new CDN distribution.
+        
+        :param 
+        """
+        pass
+
+
+    def delete_distribution(self, distribution_id):
+        """
+        Deletes CDN distribution
+
+        :param distribution_id: Id of CDN distribution
+        """
+        pass

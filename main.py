@@ -87,7 +87,7 @@ def list_distributions():
 
 
 @app.route('/distributions/<string:distribution_id>', methods=['GET'])
-def get_distributions(distribution_id):
+def get_distribution(distribution_id):
     """
     Lists inforamtion about specific distribution by id.
 
@@ -95,6 +95,24 @@ def get_distributions(distribution_id):
     """
     cloudfront = CloudFront()
     return cloudfront.get_distribution(distribution_id=distribution_id)
+
+
+@app.route('/distributions/', methods=['POST'])
+def create_distribution():
+    """ Creates new CDN distribution. """
+    cloudfront = CloudFront()
+    data = request.get_json()
+
+
+@app.route('/distributions/<string:distribution_id>', methods=['DELETE'])
+def delete_distribution(distribution_id):
+    """
+    Deletes CDN distribution
+
+    :param distribution_id: Id of CDN distribution
+    """
+    cloudfront = CloudFront()
+    return cloudfront.delete_distribution(distribution_id=distribution_id)
 
 
 @app.errorhandler(404)
