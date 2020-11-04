@@ -76,6 +76,7 @@
 * __AWS_REGION__ = region where iam will be connected to AWS
 > Tested Region us-east-1
 * __ROUTE53_DELEGATION_SET__ = route53 delegation set which will be used for creating hosted zones 
+> This what is need to be created by you manually or provide existing one
 
 ## Local
 
@@ -86,7 +87,7 @@ python -u main.py
 ## Docker 
 
 ```bash
-docker run -it -d -p 5000:5000 -e AWS_ACCESS_KEY="" -e AWS_SECRET_KEY="" -e AWS_REGION="" --rm --name cdn-dns-controller ${image_name}:${image_tag}
+docker run -it -d -p 5000:5000 -e AWS_ACCESS_KEY="" -e AWS_SECRET_KEY="" -e AWS_REGION="" -e ROUTE53_DELEGATION_SET="" --rm --name cdn-dns-controller ${image_name}:${image_tag}
 ```
 > image_name = repository name of docker image
 > image_tag = specify version what do you like to upload
