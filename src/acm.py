@@ -30,3 +30,16 @@ class ACM():
         return self.client.get_certificate(
             CertificateArn = certificate_arn
         )
+
+
+    def request_certificate(self, domain_name):
+        """
+        Requests certificate from ACM.
+
+        :param domain_name: domain name for certificate signing
+        """
+        response = self.client.request_certificate(
+            DomainName=domain_name,
+            ValidationMethod='DNS',
+        )
+        return response.get('CertificateArn')
