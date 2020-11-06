@@ -1,0 +1,6 @@
+e2e/
+tests/
+.env*
+.gitignore
+LICENSE
+README.md
