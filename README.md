@@ -74,7 +74,11 @@ Could be usefull if you are having your own AWS ecosystem and CMS platform/hosti
         ```
     > Record sets/aliases deletion methods covers in POST request (just provide DELETE action)
 - [X] `DELETE` /zones/<zone_id> -> delete route53 hosted zone
-> This method is not forced, you will be able to delete hosted zone, only if it doesn't have any records.
+> IF you'd like to have force deletiong please add force=true parameter
+
+```js
+    /zones/<zone_id>?force=true
+```
 
 
 ## Clodfront module

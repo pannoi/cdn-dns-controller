@@ -75,7 +75,11 @@ def change_resource_record(self, zone_id):
 def delete_zone(zone_id):
 	""" Deletes hosted zone. """
 	route53 = Route53()
-	return route53.delete_hosted_zone(zone_id)
+	data = request.get.json()
+	force = False
+	if 'force' in data:
+		force = True
+	return route53.delete_hosted_zone(zone_id, force=force)
 
 
 # CloudFront routes
