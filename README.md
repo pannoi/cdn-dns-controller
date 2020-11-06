@@ -22,6 +22,7 @@ Could be usefull if you are having your own AWS ecosystem and CMS platform/hosti
 
 - Cover whole api methods with e2e BDD tests
 - Add logging module to handle exceptions and print out information
+- Readme: add cols and build/test statuses
 - Hosted zone deleteion force mode (Recursive deletion of all records and then delete hosted zone)
 - Automatically get CDN hosted zone ID and remove it from env. variables
 - Add additinional templates for CDN creation to optimize caching behavior
