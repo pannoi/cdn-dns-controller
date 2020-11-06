@@ -5,6 +5,8 @@ import time
 
 from src.environment import Environment
 from src.acm import ACM
+from src.helpers import Helper
+from src.route53 import Route53
 
 
 class CloudFront():
@@ -33,15 +35,6 @@ class CloudFront():
         return self.client.get_distribution(
             Id=distribution_id
         )
-
-
-    def create_distribution(self):
-        """
-        Function creates new CDN distribution.
-        
-        :param 
-        """
-        pass
 
 
     def delete_distribution(self, distribution_id):
@@ -76,3 +69,50 @@ class CloudFront():
             time.sleep(sleep_time)
             status = self.get_distribution(distribution_id)['DistributionConfig']['Status']
             elapsed_time += sleep_time
+
+
+    def create_distribution(self, comment, origin_id, domain_name, hosted_zone, endpoint):
+        """
+        Function creates new CDN distribution.
+
+        :param comment     : Comment to new distribution
+        :param origin_id   : Origin_id of new distribution
+        :param domain_name : Domain Name which will be assigned to new distribution
+        :param hosted_zone : Hosted zone where should be record for cdn created
+        :param endpoint    : Endpoint what should be mapped for CDN, ussualy ELB
+        """
+        acm = ACM()
+        helpers = Helper()
+        certificate = acm.request_certificate(domain_name=domain_name)
+        time.sleep(5)
+        record = acm.get_domain_validation_records(certificate_arn=certificate)
+        acm.create_dns_record(record=record, zone_id=hosted_zone)
+        acm.wait_for_certificate_validation(certificate_arn=certificate)
+        caller_reference = helpers.get_random_string(13)
+        file_loader = FileSystemLoader('templates')
+        env = jEnv(loader=file_loader)
+        env.trim_blocks = True
+        template = env.get_template('cdn_distribution_default.j2')
+        output = template.render(
+            caller_reference=caller_reference,
+            comment=comment.arg,
+            origin_id=origin_id,
+            domain_name=domain_name,
+            endpoint=endpoint,
+            certificate=certificate
+        )
+        new_cdn = self.client.create_distribution(
+            DistributionConfig=output
+        )
+        # Create record to route trafic via CDN
+        route53 = Route53()
+        route53.change_resource_record_alias(
+            zone_id=hosted_zone,
+            comment=comment,
+            action="UPSERT",
+            type='A',
+            hosted_zone=Environment.cdn_hosted_zone,
+            dns_name=new_cdn['Distribution']['DomainName'],
+            name=domain_name
+        )
+        return new_cdn

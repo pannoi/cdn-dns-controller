@@ -1,6 +1,7 @@
 import boto3
 import time
 from src.environment import Environment
+from src.route53 import Route53
 
 
 class ACM():
@@ -95,3 +96,25 @@ class ACM():
             time.sleep(sleep_time)
             status = self.client.describe_certificate(CertificateArn=certificate_arn)['Certificate']['Status']
             elapsed_time += 5
+
+
+    def create_dns_record(self, record, zone_id, comment="Created by cdn-dns-controller"):
+        """
+        Function creates dns record to validate acm certificate.
+
+        :param record  : record set which needs to be added to Route53
+        :param zone_id : hosted zone id where record should be created
+        """
+        route53 = Route53()
+        record_type, record_name, record_value = self.get_resource_record_data(
+            record[0]['ResourceRecord']
+        )
+        return route53.change_resource_record_set(
+            zone_id=zone_id,
+            comment=comment,
+            action='UPSERT',
+            name=record_name,
+            type=record_type,
+            ttl=300,
+            target=record_value
+        )

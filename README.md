@@ -65,8 +65,19 @@
 
 - [X] `GET` /distributions/ -> lists all CDN distributions in Cloudfront domain
 - [X] `GET` /distributions/<distribution_id> -> lists all information about specific distribution
-- [ ] `POST` /distributions/ -> create new CDN distribution
-- [ ] `DELETE` /distributions/<distribution_id> -> delete specified distribution from Cloudfront
+- [X] `POST` /distributions/ -> create new CDN distribution
+    - __Example:__
+        ```json
+            {
+                "Comment": "<string>", // Comment for CDN
+                "OriginId": "<string>", // Origin which should be assigned for CDN
+                "DomainName": "<string>", // Domain name what should be assigned for CDN
+                "HostedZone": "<string>", // HostedZone where record shouldbe created (ID)
+                "Endpoint": "<string>" // For example: ELB
+            }
+        ```
+> TODO: Add templates to supports different scenarios: f.e.: WordPress
+- [X] `DELETE` /distributions/<distribution_id> -> delete specified distribution from Cloudfront
 
 # Run
 
@@ -77,6 +88,7 @@
 > Tested Region us-east-1
 * __ROUTE53_DELEGATION_SET__ = route53 delegation set which will be used for creating hosted zones 
 > This what is need to be created by you manually or provide existing one
+*__CDN_HOSTED_ZONE_ID__ = hosted zone id for cdn 
 
 ## Local
 

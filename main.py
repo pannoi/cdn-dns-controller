@@ -102,7 +102,13 @@ def create_distribution():
     """ Creates new CDN distribution. """
     cloudfront = CloudFront()
     data = request.get_json()
-    return cloudfront.create_distribution()
+    return cloudfront.create_distribution(
+        comment=data['Comment'],
+        origin_id=data['OriginId'],
+        domain_name=data['DomainName'],
+        hosted_zone=data['HostedZone'],
+        endpoint=data['Endpoint']
+    )
 
 
 @app.route('/distributions/<string:distribution_id>', methods=['DELETE'])
