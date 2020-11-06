@@ -83,9 +83,9 @@ class ACM():
         """
         Method to wait until certificate will be valid with timeout.
 
-        :param certificate_arn: unique certificate_arn provided by amazon
-        :param sleep_time: default 5 sec, checks certificate status every 5 seconds
-        :param timeout: maximum time to try certificate verification
+        :param certificate_arn : unique certificate_arn provided by amazon
+        :param sleep_time      : default 5 sec, checks certificate status every 5 seconds
+        :param timeout         : maximum time to try certificate verification
         """
         status = self.client.describe_certificate(CertificateArn=certificate_arn)['Certificate']['Status']
         elapsed_time = 0
