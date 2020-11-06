@@ -2,6 +2,8 @@
 
 - [cdn-dns-controller](#cdn-dns-controller)
 - [General](#general)
+    - [Info](#info)
+    - [TODO](#todo)
 - [Methods](#methods)
     - [Route53 module](#route53-module)
     - [Cloudfront module](#cloudfront-module)
@@ -14,6 +16,15 @@
     - [API tests](#api-tests)
 
 # General
+
+## Info
+
+## TODO
+
+- Cover whole api methods with e2e BDD tests
+- Hosted zone deleteion force mode (Recursive deletion of all records and then delete hosted zone)
+- Automatically get CDN hosted zone ID and remove it from env. variables
+- Add additinional templates for CDN creation to optimize caching behavior
 
 # Methods
 
@@ -76,7 +87,6 @@
                 "Endpoint": "<string>" // For example: ELB
             }
         ```
-> TODO: Add templates to supports different scenarios: f.e.: WordPress
 - [X] `DELETE` /distributions/<distribution_id> -> delete specified distribution from Cloudfront
 
 # Run
@@ -89,7 +99,6 @@
 * __ROUTE53_DELEGATION_SET__ = route53 delegation set which will be used for creating hosted zones 
 > This what is need to be created by you manually or provide existing one
 * __CDN_HOSTED_ZONE_ID__ = hosted zone id for cdn
-> You need to check it manually (TODO: automate this step)
 
 ## Local
 
