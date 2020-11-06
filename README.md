@@ -1,8 +1,10 @@
 # cdn-dns-controller
 
+Is a controller which implements API model to manage Route53 records and CDN controllers.
+
+Could be usefull if you are having your own AWS ecosystem and CMS platform/hosting to automate CDN and DNS record management
+
 - [cdn-dns-controller](#cdn-dns-controller)
-- [General](#general)
-    - [Info](#info)
     - [TODO](#todo)
 - [Methods](#methods)
     - [Route53 module](#route53-module)
@@ -15,13 +17,6 @@
     - [Unit tests](#unit-tests)
     - [API tests](#api-tests)
 
-# General
-
-## Info
-
-Is a controller which implements API model to manage Route53 records and CDN controllers.
-
-Could be usefull if you are having your own AWS ecosystem and CMS platform/hosting to automate CDN and DNS record management
 
 ## TODO
 
