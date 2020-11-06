@@ -1,5 +1,10 @@
 # cdn-dns-controller
 
+[![Build Status](https://travis-ci.org/pannoi/cdn-dns-controller.svg?branch=main)](https://travis-ci.org/pannoi/cdn-dns-controller)
+
+[![codecov](https://codecov.io/gh/pannoi/cdn-dns-controller/branch/main/graph/badge.svg?token=11VG1ME7GE)](https://codecov.io/gh/pannoi/cdn-dns-controller)
+
+
 Is a controller which implements API model to manage Route53 records and CDN controllers.
 
 Could be usefull if you are having your own AWS ecosystem and CMS platform/hosting to automate CDN and DNS record management
@@ -22,7 +27,6 @@ Could be usefull if you are having your own AWS ecosystem and CMS platform/hosti
 
 - Cover whole api methods with e2e BDD tests
 - Add logging module to handle exceptions and print out information
-- Readme: add cols and build/test statuses
 - Hosted zone deleteion force mode (Recursive deletion of all records and then delete hosted zone)
 - Automatically get CDN hosted zone ID and remove it from env. variables
 - Add additinional templates for CDN creation to optimize caching behavior
