@@ -112,12 +112,59 @@ class Route53():
         )
 
 
-    def delete_hosted_zone(self, zone_id):
+    def delete_hosted_zone(self, zone_id, force=False):
         """
         Function delete specified hosted zone under Route53 domain.
 
-        :param zone_id: Hosted zone which should be deleted
+        :param zone_id : Hosted zone which should be deleted
+        :param force   : Recursively delete all records in hosted zone
         """
+        if force:
+            self.recurse_record_deletion(zone_id=zone_id)
         return self.client.delete_hosted_zone(
             Id=zone_id
         )
+
+
+    def get_records(self, zone_id):
+        """
+        Lists all records under specific hosted_zone.
+
+        :param zone_id : Id of specific hosted zone
+        """
+        return self.client.list_resource_record_sets(
+            HostedZoneId=zone_id
+        )
+
+
+    def recurse_record_deletion(self, zone_id):
+        """
+        Recursevly deletes all records in hosted zone
+
+        :param zone_id : Id of zone where records should be deleted
+        """
+        records = self.get_records(zone_id=zone_id)
+        records = records['ResourceRecordSets']
+        deletion_comment = "Deleted by cdn-dns-controller"
+        for r in records:
+            if 'AliasTarget' in r:
+                self.change_resource_record_alias(
+                    zone_id=zone_id,
+                    comment=deletion_comment,
+                    action="DELETE",
+                    hosted_zone=r['AliasTarget']['HostedZoneId'],
+                    dns_name=r['AliasTarget']['DNSName'],
+                    name=r['Name'],
+                    type=r['Type']
+                )
+            else:
+                if r['Type'] != 'SOA' and r['Type'] != 'NS':
+                    self.change_resource_record_set(
+                        zone_id=zone_id,
+                        comment=deletion_comment,
+                        action="DELETE",
+                        name=r['Name'],
+                        type=r['Type'],
+                        ttl=r['TTL'],
+                        target=r['ResourceRecords'][0]['Value']
+                    )
