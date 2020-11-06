@@ -100,7 +100,7 @@ class Route53():
         output = template.render(
             comment=comment,
             action=action,
-            evaluate_health=False,
+            evaluate_health='False',
             dns_name=dns_name,
             hosted_zone=hosted_zone,
             name=name,

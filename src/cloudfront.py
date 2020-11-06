@@ -95,7 +95,7 @@ class CloudFront():
         template = env.get_template('cdn_distribution_default.j2')
         output = template.render(
             caller_reference=caller_reference,
-            comment=comment.arg,
+            comment=comment,
             origin_id=origin_id,
             domain_name=domain_name,
             endpoint=endpoint,
