@@ -5,3 +5,4 @@ boto3==1.14.50
 pytest==5.4.1
 unittest2==1.1.0
 jinja2==2.11.1
+behave==1.2.6
