@@ -120,7 +120,7 @@ docker run -it -d -p 5000:5000 -e AWS_ACCESS_KEY="" -e AWS_SECRET_KEY="" -e AWS_
 	- __context.py__ - Context to import modules from src directory
 	- __test_*.py__  - Unit tests
 
-## API Tests (e2e)
+## API Tests
 > To run this tests controller should be up and running with ENV variables to be able to connect to AWS
 
 * __Source:__ e2e/
