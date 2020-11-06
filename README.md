@@ -121,4 +121,17 @@ docker run -it -d -p 5000:5000 -e AWS_ACCESS_KEY="" -e AWS_SECRET_KEY="" -e AWS_
 	- __test_*.py__  - Unit tests
 
 ## API Tests (e2e)
-> comming soon...
+> To run this tests controller should be up and running with ENV variables to be able to connect to AWS
+
+* __Source:__ e2e/
+
+* __HowToRun:__
+
+	```bash
+	python3 -m behave e2e/
+	```
+
+* __Schema:__
+
+	- __*.feature__ - Here is describe API feature from user point of view
+	- __steps/__ 	- Here is describe real tests using python to implement features
