@@ -88,7 +88,8 @@
 > Tested Region us-east-1
 * __ROUTE53_DELEGATION_SET__ = route53 delegation set which will be used for creating hosted zones 
 > This what is need to be created by you manually or provide existing one
-*__CDN_HOSTED_ZONE_ID__ = hosted zone id for cdn 
+* __CDN_HOSTED_ZONE_ID__ = hosted zone id for cdn
+> You need to check it manually (TODO: automate this step)
 
 ## Local
 
