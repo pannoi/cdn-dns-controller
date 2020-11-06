@@ -120,5 +120,5 @@ docker run -it -d -p 5000:5000 -e AWS_ACCESS_KEY="" -e AWS_SECRET_KEY="" -e AWS_
 	- __context.py__ - Context to import modules from src directory
 	- __test_*.py__  - Unit tests
 
-## API Testsd (e2e)
+## API Tests (e2e)
 > comming soon...
