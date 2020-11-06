@@ -1,6 +1,14 @@
 import os
 
 
+# mock .env
+os.environ['AWS_ACCESS_KEY'] = "SUPER_SECRET_ID"
+os.environ['AWS_SECRET_KEY'] = "SUPER_SECRET_KEY"
+os.environ['AWS_REGION'] = "us-east-1"
+os.environ['ROUTE53_DELEGATION_SET'] = "SOME_DELEGATION_SET" 
+os.environ['CDN_HOSTED_ZONE_ID'] = "CDN_HOSTED_ZONE_ID"
+
+
 def test_aws_access_key():
     aws_access_key = os.getenv('AWS_ACCESS_KEY', default=None)
     if aws_access_key is None:
