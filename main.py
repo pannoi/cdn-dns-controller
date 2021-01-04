@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from flask import make_response
 from flask import request
+import logging
 
 from src.route53 import Route53
 from src.cloudfront import CloudFront
@@ -134,3 +135,4 @@ def not_found():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
+    app.logging.info('cdn-dns-controller is ready to use')
