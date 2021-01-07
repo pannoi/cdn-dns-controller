@@ -7,3 +7,4 @@ unittest2==1.1.0
 jinja2==2.11.1
 behave==1.2.6
 logging==0.4.9.6
+coverage==5.3.1
